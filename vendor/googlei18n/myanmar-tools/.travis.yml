@@ -1,0 +1,111 @@
+matrix:
+  include:
+
+    # Training Data Project
+    - language: java
+      jdk: openjdk8  # minimum supported version
+      before_script:
+        - cd training
+        - mvn compile
+      script:
+        - mvn test
+
+    # Generate-Converter Project
+    - language: java
+      jdk: openjdk8  # minimum supported version
+      before_script:
+        - cd training
+        - mvn compile
+      script:
+        - mvn test
+
+    # Check consistency between genconvert and compiled converters
+    - language: java
+      jdk: openjdk8
+      script:
+        - make transcompile
+        # There should not be any dirty files:
+        - git update-index --refresh
+        - git diff-index HEAD
+
+    # C++ Client
+    - language: cpp
+      compiler: gcc
+      # Install CMake 3.0 for Hunter
+      addons:
+        apt:
+          sources:
+            - george-edison55-precise-backports
+          packages:
+            - cmake-data
+            - cmake
+      before_script:
+        - cd clients/cpp
+        - cmake CMakeLists.txt
+      script:
+        - make
+        - make test
+
+    # Java Client
+    - language: java
+      jdk: openjdk7  # minimum supported version
+      dist: trusty  # required for OpenJDK 7
+      before_script:
+        - cd clients/java
+      script:
+        - mvn compile
+        - mvn test
+
+    # JavaScript Client (lower Node version)
+    # Note: even older Node.js versions might be allowed, but the
+    # test tooling requires more recent versions.
+    - language: node_js
+      node_js: 6
+      before_script:
+        - cd clients/js
+        - npm install
+      script:
+        - npm run test
+
+    # JavaScript Client (latest Node version)
+    - language: node_js
+      node_js: node
+      before_script:
+        - cd clients/js
+        - npm install
+      script:
+        - npm run test
+
+    # PHP Client (minimum PHP version)
+    - language: php
+      php: 7.0  # minimum supported version
+      before_script:
+        - composer install
+      script:
+        - ./vendor/bin/phpunit --configuration clients/php/phpunit.xml
+
+    # PHP Client (latest PHP version)
+    - language: php
+      php: 7.3
+      before_script:
+        - composer install
+      script:
+        - ./vendor/bin/phpunit --configuration clients/php/phpunit.xml
+
+    # Ruby Client (minimum Ruby version)
+    - language: ruby
+      rvm: 2.0  # minimum supported version
+      before_script:
+        - cd clients/ruby
+        - bundle install
+      script:
+        - rake test
+
+    # Ruby Client (latest Ruby version with jruby)
+    - language: ruby
+      rvm: jruby
+      before_script:
+        - cd clients/ruby
+        - bundle install
+      script:
+        - rake test

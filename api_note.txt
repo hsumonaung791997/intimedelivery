@@ -1,0 +1,33 @@
+postman login
+/api/postman/login
+api_key=04f38d5f332a9410d3aa737eff3b2698
+phone_no=121212
+password=4297f44b13955235245b2497399d7a93
+
+
+Route List 
+/api/postman/route?api_key=04f38d5f332a9410d3aa737eff3b2698&postman_id=6
+
+Route Detail
+/api/postman/route/detail?api_key=04f38d5f332a9410d3aa737eff3b2698&postman_id=6&route_plan_id=17
+Product Drop 
+api/product/drop?api_key=04f38d5f332a9410d3aa737eff3b2698&postman_id=6&payment=0&route_plan_id=13&remark='could not find address'
+
+Stock List	
+api/stock/list?api_key=04f38d5f332a9410d3aa737eff3b2698&postman_id=6
+
+Stock Return 
+api/product/return?api_key=04f38d5f332a9410d3aa737eff3b2698&postman_id=6&payment=0&route_plan_id=13&item_code=ITEM000011&remark="could not find address"&amount=&quantity=&notification_date=
+
+Route Plan For Warehouse
+api/postman/route/list?api_key=04f38d5f332a9410d3aa737eff3b2698&postman_id=6
+
+
+Drop List
+api/postman/drop/list?api_key=04f38d5f332a9410d3aa737eff3b2698&postman_id=6
+
+Return List
+api/postman/return/list?api_key=04f38d5f332a9410d3aa737eff3b2698&postman_id=6
+
+Postman Location
+/api/admin/postman/location?lat=33&long=21&postman_id=6&api_key=04f38d5f332a9410d3aa737eff3b2698
