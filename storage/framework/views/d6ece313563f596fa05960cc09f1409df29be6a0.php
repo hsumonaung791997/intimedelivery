@@ -39,7 +39,6 @@
               
                   </div>
                                     </form>
-                                    <div class="table-responsive-sm">
                                     <table class="table">
                                         <thead>
                                             <tr>
@@ -179,7 +178,6 @@
                                             </tr>
                                         </tfoot>
                                     </table>
-                                  </div>
                                      <?php if(isset($result_data)): ?>
                   <?php echo e($result_data->appends(Request::except('/admin/parcel/drop/search'))->setPath('/admin/parcel/drop/search')); ?>
 

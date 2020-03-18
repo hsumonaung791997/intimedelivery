@@ -175,6 +175,34 @@ $(document).ready(function(){
            <p id="result" style="color: red;"></p>
   
 </div>
+     <div class="col-md-8 col-lg-8 col-sm-8">
+                       <!-- TIMELINE -->
+              <div class="panel">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Convert Route </h3>
+                </div>
+<form method="post" enctype="multipart/form-data" action="<?php echo e(url('/convert/route')); ?>">
+                    <?php echo csrf_field(); ?>
+                <div class="panel-body">
+                  <div class="col-sm-12 col-lg-12 col-md-12">
+                    <div class="row">
+                      <div class="col-md-6">
+                   
+                    <div class="form-group">
+                      <input id="form_lastname" type="file" name="file" class="form-control" >
+                      <div class="help-block with-errors"></div>
+                    </div>
+                  </div>
+                   <div class="col-md-6">
+                    <div class="form-group">
+                      <input  type="submit" class="btn btn-primary">
+                    </div>
+                  </div>
+                  </form>
+                  
+                    </div>
+                    
+                  </div>
 <script src="<?php echo e(URL::to('assets/vendor/jquery/jquery.min.js')); ?>"></script>
 
 <script type="text/javascript">

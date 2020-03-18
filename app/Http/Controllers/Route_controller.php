@@ -360,4 +360,73 @@ class Route_controller extends Controller
 
 
     }
+    public function convert_route(Request $request)
+    {
+        $this->validate($request, [
+            'file'=> 'required'
+        ]);
+        $user_id=Auth::user()->id;
+        $date=date("Y-m-d H:i:s");
+        $path = $request->file('file')->getRealPath();
+
+        $data = Excel::load($path)->get();
+
+        if($data->count()>0)
+        {
+            foreach($data->toArray() as $key => $value)
+            {
+                // foreach($values as $row)
+                // {
+
+                    $insert_data[] = array(
+                        'division' => $value['state'],
+                        'township' => $value['township'],
+                        'address'  => $value['address'],
+                        'product_id' => $value['product_id'],
+                        'target_date' => $value['target_date'],
+                        'user_id'=> $user_id,
+                        'created_at'=>$date,
+                        'phone' => $value['phone'],
+                        'r_name'=> $value['customer_name'],
+                        'remark'=> $value['remark'],
+                        'foc'=> $value['foc_discount'],
+                        'amount'=>$value['amount'],
+                        'quantity'=>$value['quantity']
+
+                    );
+                // }
+
+            }
+                    // dd($insert_data);
+
+            if(!empty($insert_data))
+            {
+                DB::table('convert_route')->insert($insert_data);
+            }
+        }
+       $data=DB::select("SELECT rp.r_name,rp.phone as phone,p.p_id,p.product_name,p.product_type,p.product_size,rp.address,t.name as t_name,s.name as s_name,rp.target_date,rp.amount,rp.quantity,rp.foc
+                            FROM convert_route as rp
+                            JOIN state  as s
+                            ON rp.division=s.id
+                            JOIN township as t
+                            ON t.id=rp.township
+                            JOIN product as p
+                            ON p.product_id=rp.product_id 
+                            where rp.user_id='$user_id' AND (rp.status=0 OR rp.status=1)
+                            GROUP BY rp.id
+                            ORDER BY rp.id DESC 
+                            ");
+          $data= json_decode( json_encode($data), true);
+          Excel::create('Filename', function($excel) use($data) {
+
+            $excel->sheet('Sheetname', function($sheet) use($data) {
+
+                $sheet->fromArray($data);
+
+            });
+          DB::delete("DELETE FROM convert_route");
+
+        })->export('xlsx');
+
+    }
 }

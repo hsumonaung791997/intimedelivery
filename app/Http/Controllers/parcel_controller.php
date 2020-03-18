@@ -13,7 +13,9 @@ class parcel_controller extends Controller
     }
     public function create()
     {
-        $user_id = Auth::user()->id;    
+        $user_id = Auth::user()->id;  
+        DB::delete("DELETE FROM convert_route");
+          
         $data=DB::table('product')->where('user_id','=',$user_id)->orderBy('product_id','desc')->get();
     	return view('/parcel/create',['data'=>$data]);
     }

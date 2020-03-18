@@ -181,6 +181,7 @@ $(document).ready(function(){
               </div>
             </div>
             </form>
+            
            <div class="col-md-12">
               <!-- BASIC TABLE -->
               <div class="panel">
