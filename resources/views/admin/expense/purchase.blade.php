@@ -2,16 +2,6 @@
 @section('content')
   <link rel="stylesheet" href="{{URL::to('/wickedpicker.min.css')}}">
 <script src="{{URL::to('assets/vendor/jquery/jquery.min.js')}}"></script>
-<script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
             <div class="col-sm-12 col-lg-12 col-md-12">
               <div class="row">
                
@@ -32,6 +22,8 @@ $(document).ready(function(){
               <tr>
                 <td> Date</td>
                 <td><?php  echo date("d / m / yy"); ?></td>
+                        <td></td>
+
               </tr>
                <tr>
                  <td> Budget</td>
@@ -39,6 +31,11 @@ $(document).ready(function(){
                         $bud=$budget[0]->amount; 
                         echo number_format($bud);
                         ?></td>
+                        <td>
+                          <a href="#" data-toggle="modal" data-target="#exampleModal">
+                          <span class="lnr lnr-pencil"></span>
+                          </a>
+                        </td>
                </tr>
                <tr>
                 <td> Purchase</td>
@@ -46,6 +43,7 @@ $(document).ready(function(){
                         $purchase=$today_purchase[0]->today_purchase; 
                         echo number_format($purchase);
                         ?></td>
+                        <td></td>
                </tr>
                <tr>
                 <td> Expense</td>
@@ -53,6 +51,8 @@ $(document).ready(function(){
                         $expense=$today_expense[0]->today_expense; 
                         echo number_format($expense);
                         ?></td>
+                        <td></td>
+
                </tr>
                <tr style="background-color: #8de6f0;font-size: 20px;font-weight: bold;">
                 <td>Daily Gross</td>
@@ -60,6 +60,8 @@ $(document).ready(function(){
                         $balance=$bud-($purchase+$expense);
                         echo number_format($balance);
                         ?></td>
+                        <td></td>
+
                </tr>
              </table>
                   
@@ -78,6 +80,9 @@ $(document).ready(function(){
                   <h3 class="panel-title">Purchase Info </h3>
                 </div>
                 <input type="hidden" name="reload" value="<?php echo time(); ?>">
+                @foreach($budget as $row)
+                <input type="hidden" name="b_id" value="{{$row->b_id}}">
+                @endforeach
                 <div class="panel-body">
                      <div class="row">
 <form action="{{URL::to('admin/purchase/store')}}" method="get" >
@@ -105,6 +110,9 @@ $(document).ready(function(){
                }
                
                   ?>
+                  @foreach($budget as $row)
+                <input type="hidden" name="b_id" value="{{$row->b_id}}">
+                @endforeach
                 <input id="form_name" type="date" name="purchase_date" class="form-control" value="{{$purchase_date}}"  required="required">
                 <div class="help-block with-errors"></div>
               </div>
@@ -150,7 +158,9 @@ $(document).ready(function(){
                 <div class="panel-body">
                      <div class="row">
 <form action="{{URL::to('admin/expense/store')}}" method="get" >
-
+              @foreach($budget as $row)
+                <input type="hidden" name="b_id" value="{{$row->b_id}}">
+                @endforeach
             <div class="col-md-12 mt-4">
               <div class="col-md-12 mt-2">
               <div class="form-group">
@@ -269,5 +279,27 @@ $(document).ready(function(){
             </div>
            </form>
 
-
+<!-- Modal -->
+<form action="{{URL::to('set/budget')}}" method="POST">
+  @csrf
+<div class="modal fade bd-example-modal-sm" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Budget Amount</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <input type="text" name="budget" value="{{$bud}}" class="form-control">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="Update">
+      </div>
+    </div>
+  </div>
+</div>
+</form>
 @endsection
