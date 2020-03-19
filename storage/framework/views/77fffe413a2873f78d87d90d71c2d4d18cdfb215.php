@@ -25,7 +25,7 @@
                   </div>
                           <div class="col-md-5 col-lg-5 col-sm-5">
                   <label>To Date</label>
-                  <input type="date" name="" class="form-control form-control-sm">
+                  <input type="date" name="to_date" class="form-control form-control-sm">
                   </div>
                   <div class="col-md-2 col-sm-2 col-lg-2" style="margin-top: 3%;">
                     <input type="submit"  value="Filter" name="filter" class="btn btn-primary" style="margin-top: 2%;">

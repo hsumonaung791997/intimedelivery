@@ -207,8 +207,8 @@
 								</ul>
 							</div>
 						</li>	
-						<li><a href="{{URL::to('admin/online/shop/')}}" class=""><i class="lnr lnr-store"></i> <span>Online Shop</span> </a></li>
-						<li>
+						<!-- <li><a href="{{URL::to('admin/online/shop/')}}" class=""><i class="lnr lnr-store"></i> <span>Online Shop</span> </a></li> -->
+						<!-- <li>
 							<a href="#subPages211" data-toggle="collapse" class="collapsed"><i class="lnr lnr-calendar-full"></i> <span>Daily Usage</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages211" class="collapse ">
 								<ul class="nav">
@@ -218,7 +218,7 @@
 									
 								</ul>
 							</div>
-						</li>	
+						</li>	 -->
 					</ul>
 				</nav>
 			</div>
