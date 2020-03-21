@@ -62,7 +62,7 @@ L.mapbox.accessToken = 'pk.eyJ1IjoiY2hpdGthdW5nMTk5MyIsImEiOiJjamo5aTQ1NWIwMm1zM
 </html>
 <script type="text/javascript">
     var map = L.map('map').setView([16.734,96.036], 5);
-    realtime = L.realtime('http://159.65.137.232/realtime/map/{{ Request::get('postman_id') }}', {
+    realtime = L.realtime('http://159.65.137.232/admin/realtime/map/{{ Request::get('postman_id') }}', {
         interval: 3 * 1000
     }).addTo(map);
 
