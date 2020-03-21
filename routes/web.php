@@ -188,6 +188,7 @@ Route::post("admin/issue/store",'admin\parcel_controller@issue_store');
 Route::post('admin/issue/update/','admin\parcel_controller@issue_update');
 Route::post('admin/assign/manage','admin\Route_controller@route_manage');
 Route::get('budget/search',"expense_controller@budget_search");
+Route::get('admin/payroll','payroll_controller@staff_payroll');
 
 // Route::get('admin/high/way/verif,y/list',"admin\Route_controller@")
 // Route::get("admin/parcel/return","admin\");

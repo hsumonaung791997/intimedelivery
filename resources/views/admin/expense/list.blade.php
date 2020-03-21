@@ -59,6 +59,19 @@
                       </tr>
                       @endforeach
                       @endif
+                      @if(isset($response))
+                      <?php $i=1; ?>
+                      @foreach($response as $row)
+                      <tr>
+                        <td>{{$i++}}</td>
+                        <td><?php echo number_format($row->budget); ?></td>
+                        <td><?php echo number_format($row->expense); ?></td>
+                        <td><?php echo number_format($row->budget-$row->expense); ?></td>
+                        <td>{{$row->budget_date}}</td>
+                        <td><button class="btn btn-outline-primary btn-sm" value="{{$row->b_id}}">View</button></td>
+                      </tr>
+                      @endforeach
+                      @endif
                     </tbody>
                   </table>
                 </div>

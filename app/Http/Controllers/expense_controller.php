@@ -119,12 +119,19 @@ class expense_controller extends Controller
 	    {
 	    	$to_date=$request->input('to_date');
 	    	$from_date=$request->input('from_date');
-	    	$result=DB::select("
+	    	if($to_date==null){
+	    		$to_date="3000-01-01";
+	    	}
+	    	if($from_date==null){
+	    		$from_date="2000-01-01";
+	    	}
+	    	$response=DB::select("
 	    		SELECT sum(dg.amount) as expense,dg.type,b.amount as budget,b.budget_date,b.id as b_id 
 	    		FROM daily_gross as dg 
 	    		JOIN budget as b
-	    		ON b.id=dg.b_id GROUP BY dg.b_id ORDER BY b.id DESC
+	    		ON b.id=dg.b_id WHERE b.budget_date between   '$from_date' AND  '$to_date' GROUP BY dg.b_id ORDER BY b.id DESC
 	    		");
-
+	    	return view("admin/expense/list",['response'=>$response]);
+	    	// dd($result);
 	    }
 }

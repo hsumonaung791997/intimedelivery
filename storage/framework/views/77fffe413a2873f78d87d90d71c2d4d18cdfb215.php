@@ -58,6 +58,19 @@
                       </tr>
                       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                       <?php endif; ?>
+                      <?php if(isset($response)): ?>
+                      <?php $i=1; ?>
+                      <?php $__currentLoopData = $response; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                      <tr>
+                        <td><?php echo e($i++); ?></td>
+                        <td><?php echo number_format($row->budget); ?></td>
+                        <td><?php echo number_format($row->expense); ?></td>
+                        <td><?php echo number_format($row->budget-$row->expense); ?></td>
+                        <td><?php echo e($row->budget_date); ?></td>
+                        <td><button class="btn btn-outline-primary btn-sm" value="<?php echo e($row->b_id); ?>">View</button></td>
+                      </tr>
+                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                      <?php endif; ?>
                     </tbody>
                   </table>
                 </div>
