@@ -202,7 +202,7 @@
 								<ul class="nav">
 									<li><a href="<?php echo e(URL::to('admin/staff/index')); ?>" class="">Staff List</a></li>
 									<li><a href="<?php echo e(URL::to('admin/staff/create')); ?>" class="">Staff Create</a></li>
-									<li><a href="<?php echo e(URL::to('admin/payroll')); ?>" class="">Payment</a></li>
+									<!-- <li><a href="<?php echo e(URL::to('admin/payroll')); ?>" class="">Payment</a></li> -->
 
 
 									
