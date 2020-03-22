@@ -122,7 +122,7 @@ class route_controller extends Controller
                             ON p.product_id=rp.product_id 
                             LEFT JOIN route_planning as r_p
                             ON r_p.plan_id=rp.id
-                            WHERE pr.postman_id='$postman_id' AND r_p.status=1 AND rp.parcel_status=0 AND rp.customer_confirm_status=0 GROUP BY rp.id
+                            WHERE pr.postman_id='$postman_id' AND r_p.status=1 AND rp.parcel_status=1 AND rp.customer_confirm_status=0 GROUP BY rp.id
                         ");
             if (count($result)<0) {
             return response()->json(['status'=>true,'result'=>'No Data']);

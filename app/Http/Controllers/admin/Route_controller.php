@@ -312,23 +312,23 @@ class Route_controller extends Controller
             ON p.product_id=rp.product_id
             WHERE rp.id='$route_plan_id'
             ");
-        if(count($route_result)>0){
-        return redirect('admin/route/list/request');
-        }else{
-              foreach($result as $row) {
-            $p_id=$row->p_id;
-            $product_name=$row->product_name;
-            $product_id=$row->product_id;
-            $product_size=$row->product_size;
-            $product_vendor_name=$row->product_vendor_name;
-            $amount=$row->amount;
-            $quantity=$row->quantity;
-            DB::insert("INSERT INTO stock_in (product_id,in_qty,price_per_item,created_at,route_plan_id) VALUES(?,?,?,?,?)",[
-                $p_id,$quantity,$amount,$date,$route_plan_id
-            ]);
-            DB::insert("Insert into stock_in_out_return(product_id,stock_in,product_price_per_item,created_at,plan_id) VALUES(?,?,?,?,?)",[$p_id,$quantity,$amount,$date,$route_plan_id]);
-            }
-        }
+        // if(count($route_result)>0){
+        // return redirect('admin/route/list/request');
+        // }else{
+        //       foreach($result as $row) {
+        //     $p_id=$row->p_id;
+        //     $product_name=$row->product_name;
+        //     $product_id=$row->product_id;
+        //     $product_size=$row->product_size;
+        //     $product_vendor_name=$row->product_vendor_name;
+        //     $amount=$row->amount;
+        //     $quantity=$row->quantity;
+        //     DB::insert("INSERT INTO stock_in (product_id,in_qty,price_per_item,created_at,route_plan_id) VALUES(?,?,?,?,?)",[
+        //         $p_id,$quantity,$amount,$date,$route_plan_id
+        //     ]);
+        //     DB::insert("Insert into stock_in_out_return(product_id,stock_in,product_price_per_item,created_at,plan_id) VALUES(?,?,?,?,?)",[$p_id,$quantity,$amount,$date,$route_plan_id]);
+        //     }
+        // }
         return redirect('admin/route/list/request');
    }
    public function route_list_verified()
