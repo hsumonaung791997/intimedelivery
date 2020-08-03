@@ -4,7 +4,7 @@ This document describes the steps required to update Myanmar Tools in package re
 
 ## Versioning
 
-Version tags apply to the entire repository, but each language has a suffix on the tag.  For example, `v1.1.2+js` is version 1.1.2 for the JavaScript client.
+Version tags apply to the entire repository.  It is therefore essential that you maintain the stability of all projects when making a release.  For example, if you are making a Java-specific change, you shouldn't commit changes that break other clients, even if you intend to fix them later.
 
 We use semantic versioning: change the small digit for minor bug fixes, the middle digit for larger bug fixes or minor feature improvements, and the large digit for major feature improvements that could also break backwards compatibility.
 
@@ -20,10 +20,6 @@ You must have write access to the Github repo, and you must also have write acce
 4. Ensure that the working directory is clean.  Commit or stash any lingering changes.
 4. Run `npm publish` in the `clients/js` directory.
 5. All done; make sure that the package got updated by visiting https://www.npmjs.com/package/myanmar-tools.
-
-## Releasing to Google Hosted Libraries (Browser JS)
-
-A Google engineer needs to perform this task.  For more details, see go/zawgyi/releasing.
 
 ## Releasing to Maven Central (Java)
 

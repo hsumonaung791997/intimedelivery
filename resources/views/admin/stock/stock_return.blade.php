@@ -30,11 +30,9 @@
 							                  <div class="col-md-3 col-lg-3 col-sm-3">
 							                    <input type="date" class="form-control" name="date" value="{{$date}}">
 							                  </div>
-							                  <div class="col-md-2 col-sm-2 col-lg-2">
 							                    <input type="submit" name="filter" value="Filter" class="btn btn-primary">
 							                    <input type="submit" name="print" value="Printer" class="btn btn-success">
 
-						                  </div>
 					                  </div>
 						</form>
 									<table class="table">

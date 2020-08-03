@@ -10,6 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Input;
 use Excel;
+use Auth;
 class Route_controller extends Controller
 {
       public function __construct()
@@ -20,18 +21,21 @@ class Route_controller extends Controller
     {
         $state=DB::select("SELECT * FROM state");
         $postman=DB::select("SELECT * FROM delivery_postman where role_id=0");
-        $data=DB::select("SELECT rp.address,t.name as t_name,s.name as s_name,p.product_name as product_name,p.product_vendor_name,rp.reg_date as reg_date,rp.target_date as target_date,rp.quantity as qty,rp.amount as amount,rp.target_time as target_time,rp.id as r_id,rp.id as route_plan_id,rp.phone as phone,rp.r_name  
+        $data=DB::select("SELECT rp.address,t.name as t_name,s.name as s_name,p.product_name as product_name,p.product_vendor_name,rp.reg_date as reg_date,rp.target_date as target_date,rp.quantity as qty,rp.amount as amount,rp.target_time as target_time,rp.id as r_id,rp.id as route_plan_id,rp.phone as phone,rp.r_name ,rp.o_id as o_id 
                     FROM route_plan as rp
                     JOIN users as u
-                    ON u.id=user_id
+                    ON u.id=rp.user_id
                     JOIN product as p
-                    ON p.product_id=rp.product_id
+                    JOIN order_table as o
                     JOIN state as s 
                     ON s.id=rp.division
                     JOIN township as t
                     ON t.id=rp.township
                     WHERE rp.status=1 GROUP BY rp.id
             ");
+
+        // $route_plan = DB::select("SELECT * FROM route_plan");
+        //return $route_plan;
         return view('admin/route/assign',['postman'=>$postman,'data'=>$data,'state'=>$state]);
     }
      
@@ -58,6 +62,63 @@ class Route_controller extends Controller
         $data = new \Illuminate\Pagination\LengthAwarePaginator($res, count($response), $pageSize, $page);
         return view("admin/route/route_list_request",['data'=>$data]);
     }
+
+
+
+     public function exportvendor()
+    {
+            
+            $page = LengthAwarePaginator::resolveCurrentPage();
+            $pageSize = 50;
+
+            $query="SELECT rp.address,t.name as t_name,s.name as s_name,p.product_name as product_name,p.product_vendor_name,rp.created_at as created_at,rp.quantity as qty,rp.amount as amount,rp.id as r_id,rp.id as route_plan_id,p.p_id,rp.phone as phone  
+                    FROM route_plan as rp
+                    JOIN users as u
+                    ON u.id=user_id
+                    JOIN product as p
+                    ON p.product_id=rp.product_id
+                    JOIN state as s 
+                    ON s.id=rp.division
+                    JOIN township as t
+                    ON t.id=rp.township
+                    WHERE rp.status=0
+                    GROUP BY rp.id
+                    ORDER BY rp.id DESC";
+                       
+                    $response=DB::select($query);
+                    $res = array_slice($response, $pageSize * ($page - 1), $pageSize, true);
+                    $select = new \Illuminate\Pagination\LengthAwarePaginator($res, count($response), $pageSize, $page);
+            return view('admin/route/vendor-export', ['select'=>$select]);
+
+    }
+
+    public function exportingvendor(Request $request)
+    {
+        $request->validate([
+            'vendor_name' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+        ]);
+
+        $user_id =Auth::user()->id;
+        $vendor_name = $request->input('vendor_name');
+        $start_date = $request->input('start_date');
+        $end_date =  $request->input('end_date');
+
+        $result ="SELECT rp.address,t.name as t_name,s.name as s_name,p.product_name as product_name,p.product_vendor_name,rp.created_at as created_at,rp.quantity as qty,rp.amount as amount,rp.total_amount as total_amount,p.p_id,rp.phone as phone FROM route_plan as rp JOIN users as u ON u.id=user_id JOIN product as p ON p.product_id=rp.product_id JOIN state as s ON s.id=rp.division JOIN township as t ON t.id=rp.township where p.product_vendor_name LIKE  '$vendor_name'  AND rp.created_at >= '$start_date'   AND rp.created_at <= '$end_date'" ;
+
+        $querys = DB::select($result);
+        $data = json_decode(json_encode($querys),true);
+        
+        return Excel::create('vendor_list', function($excel) use ($data) {
+        $excel->sheet('mySheet', function($sheet) use ($data)
+            {
+                $sheet->fromArray($data);
+            });
+        })->download('xlsx');
+
+    }
+
     public function route_list_request_search(Request $request)
     {
         $page = LengthAwarePaginator::resolveCurrentPage();
@@ -234,20 +295,22 @@ class Route_controller extends Controller
    }
    public function route_list_edit($id)
    {
-       $result=DB::select("SELECT p.p_id as p_id,rp.id as id,p.product_name,rp.quantity as qty,rp.amount as amount,rp.reg_date as reg_date,rp.target_date,s.name as s_name,t.name as t_name,rp.address,rp.phone as phone,rp.id as route_plan_id,rp.r_name,rp.phone,rp.foc,rp.remark
+       $result=DB::select("SELECT o.o_id as o_id,o.o_amount_total,p.p_id as p_id,rp.id as id,p.product_name,rp.quantity as qty,rp.amount as amount,rp.reg_date as reg_date,rp.target_date,s.name as s_name,t.name as t_name,rp.address,rp.phone as phone,rp.id as route_plan_id,rp.r_name,rp.phone,rp.foc,rp.remark,p.product_id as p_id,rp.product_id as product_id,rp.o_id as order_id,s.id as s_id,t.id as t_id
         FROM route_plan as rp 
         join product as  p
-        on p.product_id=rp.product_id
+         
         JOIN state as s
         ON s.id=rp.division
         JOIN township as t
         ON t.id=rp.township
-
+        JOIN order_table as o
         where rp.id='$id' GROUP BY rp.id
 
 
        ");
-       return view('admin/route/edit',['result'=>$result]);
+       $orderDetail = DB::select("SELECT * FROM order_detail");
+       $orderTable = DB::select("SELECT * FROM order_table");
+       return view('admin/route/edit',['result'=>$result,'orderDetail'=>$orderDetail,'orderTable'=>$orderTable]);
    }
    public function high_way_drop_list()
    {
@@ -423,8 +486,9 @@ class Route_controller extends Controller
                     ON r_p.plan_id=rp.id
                     WHERE rp.id=$route_plan GROUP BY rp.id
         ");
-    // dd($result);
-    return view("admin/voucher/print",['result'=>$result]);
+    
+    //dd($result);
+   return view("admin/voucher/print",['result'=>$result]);
    }
    public function route_modify($id)
    {

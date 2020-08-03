@@ -695,23 +695,6 @@ public class TransliterateTest {
 
   };
 
-private final String[][] normalizeTestCases = {
-  {"အကာင္ ့",
-   "\u1021\u1000\u102c\u1004\u1039\u1037"  // "အကာင္"
-  },
-  {
-    "မၪၨဴရီ",
-    "မၪၨဴရီ"
-  },
-  {
-    "အာဆီယံ",
-    "အာဆီယံ"
-  },
-  {
-    "အမ်ားစုထိန္းခ်ဳပ္ထားတဲ့",
-    "အမ်ားစုထိန္းခ်ုပ္ထားတဲ့"
- }
-};
 
   @BeforeClass
   public static void setup() {
@@ -765,20 +748,14 @@ private final String[][] normalizeTestCases = {
 
   @Test
   public void zNormTests() {
+    String z1 = "အကာင္ ့";
+    String z1NormExpected = "\u1021\u1000\u102c\u1004\u1039\u1037";  // "အကာင္";
+    String result = zNorm.convert(z1);
 
-    int i = 0;
-    for (String[] testCase : normalizeTestCases) {
-      String zIn = testCase[0];
-      String expected = testCase[1];
-      String actual = zNorm.convert(zIn);
-
-      String line = " !!!! zNorm(" + i + "): z1\n" +
-                    "  input  =   " + unicodeToHex(zIn) + "\n" +
-                    "  output =   " + unicodeToHex(actual) + "\n" +
-                    "  expected = " + unicodeToHex(expected) + "\n";
-      assertWithMessage(line).that(actual).isEqualTo(expected);
-      i += 1;
-    }
+    String line = " !!!! zNorm: z1\n" +
+                  "  input  = " + unicodeToHex(z1) + "\n" +
+                  "  output = " + unicodeToHex(result);
+    assertWithMessage(line).that(result).isEqualTo(z1NormExpected);
   }
 
   @Test

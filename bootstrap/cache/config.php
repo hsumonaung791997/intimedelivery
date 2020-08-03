@@ -1,4 +1,12 @@
 <?php return array (
+  'account-head' => 
+  array (
+    'type' => 
+    array (
+      0 => 'Credit',
+      1 => 'Debit',
+    ),
+  ),
   'app' => 
   array (
     'name' => 'Laravel',
@@ -10,7 +18,7 @@
     'locale' => 'en',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:oCxdJZJW6dWALvFWeNbSOpACKsVAWWeD5ygDJyAKocE=',
+    'key' => 'base64:wlCTqnLdMvZjQloDQ3rC/cGhUfynzN2CMtg/LVPxRfA=',
     'cipher' => 'AES-256-CBC',
     'providers' => 
     array (
@@ -194,7 +202,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => '/home/blake/Downloads/intime_delivery/storage/framework/cache/data',
+        'path' => 'C:\\xampp\\htdocs\\intime_delivery\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -242,7 +250,7 @@
       'sqlite' => 
       array (
         'driver' => 'sqlite',
-        'database' => 'evtickr_intime',
+        'database' => 'intime-delivery',
         'prefix' => '',
         'foreign_key_constraints' => true,
       ),
@@ -251,9 +259,9 @@
         'driver' => 'mysql',
         'host' => 'localhost',
         'port' => '3306',
-        'database' => 'evtickr_intime',
+        'database' => 'intime-delivery',
         'username' => 'root',
-        'password' => 'root',
+        'password' => '',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -270,9 +278,9 @@
         'driver' => 'pgsql',
         'host' => 'localhost',
         'port' => '3306',
-        'database' => 'evtickr_intime',
+        'database' => 'intime-delivery',
         'username' => 'root',
-        'password' => 'root',
+        'password' => '',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -284,9 +292,9 @@
         'driver' => 'sqlsrv',
         'host' => 'localhost',
         'port' => '3306',
-        'database' => 'evtickr_intime',
+        'database' => 'intime-delivery',
         'username' => 'root',
-        'password' => 'root',
+        'password' => '',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -325,12 +333,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => '/home/blake/Downloads/intime_delivery/storage/app',
+        'root' => 'C:\\xampp\\htdocs\\intime_delivery\\storage\\app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => '/home/blake/Downloads/intime_delivery/storage/app/public',
+        'root' => 'C:\\xampp\\htdocs\\intime_delivery\\storage\\app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
       ),
@@ -376,13 +384,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => '/home/blake/Downloads/intime_delivery/storage/logs/laravel.log',
+        'path' => 'C:\\xampp\\htdocs\\intime_delivery\\storage\\logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => '/home/blake/Downloads/intime_delivery/storage/logs/laravel.log',
+        'path' => 'C:\\xampp\\htdocs\\intime_delivery\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -446,7 +454,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => '/home/blake/Downloads/intime_delivery/resources/views/vendor/mail',
+        0 => 'C:\\xampp\\htdocs\\intime_delivery\\resources\\views/vendor/mail',
       ),
     ),
     'log_channel' => NULL,
@@ -539,7 +547,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => '/home/blake/Downloads/intime_delivery/storage/framework/sessions',
+    'files' => 'C:\\xampp\\htdocs\\intime_delivery\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -559,9 +567,9 @@
   array (
     'paths' => 
     array (
-      0 => '/home/blake/Downloads/intime_delivery/resources/views',
+      0 => 'C:\\xampp\\htdocs\\intime_delivery\\resources\\views',
     ),
-    'compiled' => '/home/blake/Downloads/intime_delivery/storage/framework/views',
+    'compiled' => 'C:\\xampp\\htdocs\\intime_delivery\\storage\\framework\\views',
   ),
   'debug-server' => 
   array (
@@ -588,7 +596,7 @@
         'host' => 'localhost',
         'port' => 11211,
       ),
-      'dir' => '/home/blake/Downloads/intime_delivery/storage/cache',
+      'dir' => 'C:\\xampp\\htdocs\\intime_delivery\\storage\\cache',
     ),
     'properties' => 
     array (
@@ -654,7 +662,7 @@
       ),
       'store' => 
       array (
-        'path' => '/home/blake/Downloads/intime_delivery/storage/exports',
+        'path' => 'C:\\xampp\\htdocs\\intime_delivery\\storage\\exports',
         'returnInfo' => false,
       ),
       'pdf' => 
@@ -664,15 +672,15 @@
         array (
           'DomPDF' => 
           array (
-            'path' => '/home/blake/Downloads/intime_delivery/vendor/dompdf/dompdf/',
+            'path' => 'C:\\xampp\\htdocs\\intime_delivery\\vendor/dompdf/dompdf/',
           ),
           'tcPDF' => 
           array (
-            'path' => '/home/blake/Downloads/intime_delivery/vendor/tecnick.com/tcpdf/',
+            'path' => 'C:\\xampp\\htdocs\\intime_delivery\\vendor/tecnick.com/tcpdf/',
           ),
           'mPDF' => 
           array (
-            'path' => '/home/blake/Downloads/intime_delivery/vendor/mpdf/mpdf/',
+            'path' => 'C:\\xampp\\htdocs\\intime_delivery\\vendor/mpdf/mpdf/',
           ),
         ),
       ),

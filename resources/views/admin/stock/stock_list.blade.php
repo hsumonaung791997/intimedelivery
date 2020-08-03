@@ -25,11 +25,11 @@
 										<input type="text" class="form-control" name="search" placeholder="Search by Product ID,Name,Type, and Size" value="{{$name}}">
 									</div>
 									
-									<div class="col-md-2 col-sm-2 col-lg-2">
+									
 										<input type="submit"  value="Filter" name="filter" class="btn btn-primary">
 										<input type="submit"  value="Print" name="print" class="btn btn-success">
 
-									</div>
+									
 									</form>
 									</div>
 									<table class="table">

@@ -70,6 +70,7 @@ class Route_controller extends Controller
     	$township=$request->input('township');
     	$quantity=$request->input('quantity');
     	$amount=$request->input('amount');
+        $total_amount= $quantity*$amount;
     	$reg_date=date("Y-m-d H:i:s");
         $phone=$request->input('phone');
     	$target_date=$request->input('target_date');
@@ -78,9 +79,9 @@ class Route_controller extends Controller
         $foc_amount=$request->input('foc');
         $remark=$request->input('remark');
     	if(!isset($product_id)){
-    		return Redirect::back()->withErrors(['You muse select Your Product']);
+    		return Redirect::back()->withErrors(['You must select Your Product']);
     	}else{
-    	DB::insert("INSERT INTO route_plan(r_name,foc,phone,division,township,address,quantity,amount,product_id,reg_date,target_date,target_time,user_id,created_at,remark) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",[$r_name,$foc_amount,$phone,$state,$township,$address,$quantity,$amount,$product_id,$reg_date,$target_date,$target_time,$user_id,$created_at,$remark]);
+    	DB::insert("INSERT INTO route_plan(r_name,foc,phone,division,township,address,quantity,amount,total_amount,product_id,reg_date,target_date,target_time,user_id,created_at,remark) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",[$r_name,$foc_amount,$phone,$state,$township,$address,$quantity,$amount,$total_amount,$product_id,$reg_date,$target_date,$target_time,$user_id,$created_at,$remark]);
     	return Redirect::back()->withErrors(['Success Create Route Plan']);	
     	}
     }

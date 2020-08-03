@@ -1,4 +1,4 @@
-	@extends("layouts.admin")
+@extends("layouts.admin")
 @section('content')
 
 <div class="row">
@@ -40,9 +40,9 @@
 
 											</tr>
 										</thead>
-										@if(isset($result_data))
+										@if(isset($result))
 										<?php $i=1; ?>
-											@foreach($result_data as $res)
+											@foreach($result as $res)
 											<?php 
 											$oid=$res->o_id;
 											$o_id=DB::select("SELECT * FROM order_table where o_id='$oid'"); 
@@ -101,8 +101,14 @@
 											@foreach($result as $res)
 											<?php 
 											$oid=$res->o_id;
-											$o_id=DB::select("SELECT * FROM order_table where o_id='$oid'"); 
+											$o_id=DB::select("SELECT *,rp.product_id as p_id, rp.id as rp_id
+											 FROM order_table 
+												JOIN route_planning as rp
+												ON order_table.o_id = rp.o_id 
+												WHERE order_table.o_id='$oid'"); 
+											
 											?>
+											
 											@foreach($o_id as $row)
 											<tr>
 												<td><?php echo $i++; ?></td>
@@ -133,6 +139,7 @@
   														<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
   															<div class="text-center"><a data-toggle="modal" href="" data-target=".bd-example-modal-lg<?php echo $row->o_id; ?>" class="dropdown-item" id="click_link" >Preview</a></div>
+  															<div class="text-center"><a href="{{URL::to('admin/route/print/'.$row->p_id.'/'.$row->rp_id)}}" >Print</a></div>
     														@if($row->status==1 || $row->status==2)
   															@else
   																<div class="text-center"><a class="dropdown-item" href="{{URL::to('admin/order/verify/'.$row->o_id)}}">Verify</a></div>

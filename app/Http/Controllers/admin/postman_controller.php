@@ -134,19 +134,20 @@ class postman_controller extends Controller
         $date=date("Y-m-d");
         $postman=DB::select("SELECT * FROM delivery_postman where role_id=0");
         $choose_postman=DB::select("SELECT * FROM delivery_postman where id='$postman_id'");
-        $data=DB::select("SELECT rp.address,t.name as t_name,s.name as s_name,p.product_name as product_name,p.product_vendor_name,rp.reg_date as reg_date,rp.target_date as target_date,rp.quantity as qty,rp.amount as amount,rp.target_time as target_time,rp.id as r_id,rp.id as route_plan_id,rp.r_name  
+        $data=DB::select("SELECT rp.address,t.name as t_name,s.name as s_name,p.product_name as product_name,p.product_vendor_name,rp.reg_date as reg_date,rp.target_date as target_date,rp.quantity as qty,rp.amount as amount,rp.target_time as target_time,rp.id as r_id,rp.id as route_plan_id,rp.r_name, rp.o_id as o_id  
                     FROM route_plan as rp
                     JOIN users as u
                     ON u.id=user_id
                     JOIN product as p
-                    ON p.product_id=rp.product_id
+                  
+                    JOIN order_table as o
                     JOIN state as s 
                     ON s.id=rp.division
                     JOIN township as t
                     ON t.id=rp.township
                     WHERE rp.status=1 GROUP BY rp.id
             ");
-        $result=DB::select("SELECT rp.address as address,ts.name as t_name,s.name as s_name,rp.reg_date as reg_date,rp.target_date as target_date,rp.quantity as qty,rp.amount as amount,p.product_name as product_name,pr.id as pr_id,rp.id as rp_id,pr.created_at,pr.deliver_date,rp.customer_confirm_status,rp.remark,rp.r_name
+        $result=DB::select("SELECT rp.address as address,ts.name as t_name,s.name as s_name,rp.reg_date as reg_date,rp.target_date as target_date,rp.quantity as qty,rp.amount as amount,p.product_name as product_name,pr.id as pr_id,rp.id as rp_id,pr.created_at,pr.deliver_date,rp.customer_confirm_status,rp.remark,rp.r_name,rp.o_id as o_id 
                             FROM postman_route as pr
                             JOIN township as ts
                             ON pr.township_id=ts.id
@@ -157,7 +158,7 @@ class postman_controller extends Controller
                             JOIN state as s
                             ON ts.state_id=s.id
                             JOIN product as p
-                            ON p.product_id=rp.product_id
+                            JOIN order_table as o
                             where pr.postman_id='$postman_id' AND pr.status=0
                             GROUP BY rp.id
 
@@ -181,8 +182,8 @@ class postman_controller extends Controller
                     $i++;
                 DB::insert("INSERT INTO postman_route (township_id,postman_id,p_id,deliver_date,created_at) VALUES(?,?,?,?,?)",[
                     $township,$postman_id,$route_plan_id[$i],$deliver_date,$created_at]);
-                    DB::update("UPDATE route_plan SET status=2 where id=?",[$route_plan_id[$i]]);   
-                        DB::update("UPDATE route_planning SET status=1,delivery_postman_id=?,division=?,township=?,assign_date=? where plan_id=?",[$postman_id,$state,$township,$created_at,$route_plan_id[$i]]);
+                DB::update("UPDATE route_plan SET status=2 where id=?",[$route_plan_id[$i]]);   
+                DB::update("UPDATE route_planning SET status=1,delivery_postman_id=?,division=?,township=?,assign_date=? where plan_id=?",[$postman_id,$state,$township,$created_at,$route_plan_id[$i]]);
             }
             return redirect("admin/choose/postman?postman=".$postman_id);  
         }else{

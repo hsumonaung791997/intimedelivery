@@ -32,11 +32,9 @@
                    <input placeholder="Choose Parcel Drop Date" name="date" class="textbox-n form-control" value="{{$date}}" type="text" onfocus="(this.type='date')" value=""  id="date"> 
                   </div>
                 
-                  <div class="col-md-3 col-lg-3 col-sm-3">
                    <input name="filter" class="btn btn-primary" type="submit"  value="Filter" class="btn btn-primary"> 
 
                    <input name="print" type="submit" class="btn btn-success" value="Print"> 
-                  </div>
               
                   </div>
                                     </form>

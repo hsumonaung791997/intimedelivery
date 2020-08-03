@@ -177,7 +177,7 @@ $(document).ready(function(){
 </div>
      <div class="col-md-8 col-lg-8 col-sm-8">
                        <!-- TIMELINE -->
-              <div class="panel">
+           <!--    <div class="panel">
                 <div class="panel-heading">
                   <h3 class="panel-title">Convert Route </h3>
                 </div>
@@ -200,7 +200,7 @@ $(document).ready(function(){
                   </div>
                   </form>
                   
-                    </div>
+                    </div> -->
                     
                   </div>
 <script src="{{URL::to('assets/vendor/jquery/jquery.min.js')}}"></script>

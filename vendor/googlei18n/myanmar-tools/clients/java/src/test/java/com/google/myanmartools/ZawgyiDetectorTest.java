@@ -127,14 +127,7 @@ public class ZawgyiDetectorTest {
       String input = line.substring(tabIdx + 1);
       double actual = detector.getZawgyiProbability(input);
       try {
-        // Java Truth has very limited support for double equality testing. Prior to JDK 11, this
-        // test passed for both infinite and non-infinite with .isEqualTo(), but now it fails with
-        // a small delta.
-        if (Double.isInfinite(expected)) {
-          assertWithMessage(line).that(actual).isEqualTo(expected);
-        } else {
-          assertWithMessage(line).that(actual).isWithin(1e-6).of(expected);
-        }
+        assertWithMessage(line).that(actual).isEqualTo(expected);
       } catch (AssertionError e) {
         // Print verbose output for the failure
         detector.getZawgyiProbability(input, true);

@@ -86,11 +86,27 @@ Route::get("warehouse/stock/list/search","admin\warehouse_controller@stock_list_
 Route::get("admin/stock/list/search","admin\stock_controller@stock_list_search");
 Route::post("route/plan/store","Route_controller@store");
 Route::post("multi/route/plan/store","Route_controller@multi_store");
+
+
+
+
+/*Route::get("admin/order/list","admin/OrderController@order_list");
+*/
+
+
+
 Route::get("order/create","order_controller@order_create");
 Route::get("order/delete/{id}/{order_id}","order_controller@order_deletes");
 Route::post("order/store","order_controller@order_store");
 Route::get("order/list","order_controller@order_list");
 Route::get("order/edit/{id}/{order_id}","order_controller@order_edit");
+
+
+Route::get("admin/order/create","admin\order_controller@order_create");
+Route::get("admin/order/delete/{id}/{order_id}","admin\order_controller@order_delete");
+Route::post("admin/order/store","admin\order_controller@order_store");
+
+
 Route::get("admin/order/list","admin\order_controller@order_list");
 Route::get("admin/order/list/search","admin\order_controller@order_search");
 Route::get("admin/order/reject","admin\order_controller@order_reject");
@@ -98,6 +114,11 @@ Route::get("admin/order/reject/search","admin\order_controller@order_reject_list
 Route::get("admin/order/verified/search","admin\order_controller@order_verifed_list");
 Route::get("admin/order/verified","admin\order_controller@order_verfied");
 Route::get("admin/order/verify/{id}","admin\order_controller@order_verify");
+
+
+
+
+
 Route::post("admin/route/plan/update","admin\Route_controller@route_plan_update");
 Route::post("admin/account/ledger/update","admin\ledger_controller@account_ledger_update");
 Route::get("admin/order/reject/{id}","admin\order_controller@order_reject");
@@ -201,6 +222,7 @@ Route::get('warehouse/stock/receive','admin\order_controller@stock_receive');
 Route::post('warehouse/stock/received','admin\order_controller@stock_received');
 Route::get("warehouse/stock/received/delete/{id}","admin\order_controller@stock_received_delete");
 // AJAX
+Route::get('admin/date/route', 'ajax_controller@date_route');
 Route::get("order/entry/state","ajax_controller@township");
 Route::get("admin/township/route","ajax_controller@township_route");
 Route::get("test","admin\Route_controller@test");
@@ -210,6 +232,8 @@ Route::get('/import_excel', 'ImportExcelController@index');
 Route::post('/import_excel/import', 'ImportExcelController@import');
 Route::get('qr/print/','ajax_controller@qr_print');
 Route::get('auto/suggest','ajax_controller@auto');
+/*Route::get('admin/date/ledger-list', 'ajax_controller@search_ledger');
+*///Route::get('admin/account-head/account_code', 'ajax_controller@account_code');
 //warehouse
 Route::get("warehouse/stock/ledger","warehouse_stock_controller@stock_ledger");
 Route::get("warehouse/stock/list","warehouse_stock_controller@stock_list");
@@ -239,4 +263,26 @@ Route::get("warehouse/stock/incoming/search","warehouse_stock_controller@stock_i
 Route::get("warehouse/stock/outgoing/search","warehouse_stock_controller@stock_outgoing_search");
 Route::get('warehouse/stock/return/search',"warehouse_stock_controller@stock_return_search");
 
+// Account header
+Route::get('admin/account-head/', 'admin\AccountHeadController@index')->name('account.head.index');
+Route::get('admin/account-head/create', 'admin\AccountHeadController@create')->name('account.head.create');
+Route::post('admin/account-head/create', 'admin\AccountHeadController@store')->name('account.head.store');
+Route::get('admin/account-head/{account_id}/edit', 'admin\AccountHeadController@edit')->name('account.head.edit');
+Route::put('admin/account-head/{account_id}/edit', 'admin\AccountHeadController@update')->name('account.head.update');
+Route::get('admin/account-head/{account_id}/delete', 'admin\AccountHeadController@destroy')->name('account.head.destroy');
 
+// Account header Ledger
+
+Route::get('admin/date/ledger-list', 'admin\AccountHeadLedgerController@search_ledger')->name('ledger-list-search');
+
+Route::get('admin/account-head/ledger', 'admin\AccountHeadLedgerController@index')->name('account.head.ledger.index');
+Route::get('admin/account-head/ledger/create', 'admin\AccountHeadLedgerController@create')->name('account.head.ledger.create');
+Route::post('admin/account-head/ledger/create', 'admin\AccountHeadLedgerController@store')->name('account.head.ledger.store');
+Route::get('admin/account-head/ledger/{ledger}/edit', 'admin\AccountHeadLedgerController@edit')->name('account.head.ledger.edit');
+Route::put('admin/account-head/ledger/{ledger}/edit', 'admin\AccountHeadLedgerController@update')->name('account.head.ledger.update');
+Route::get('admin/account-head/ledger/{ledger}/delete', 'admin\AccountHeadLedgerController@destroy')->name('account.head.ledger.destroy');
+
+Route::get('admin/account-head/ledger/summary', 'admin\AccountHeadLedgerController@summary')->name('account.head.ledger.summary');
+
+Route::get('admin/route/list/vendor', 'admin\Route_controller@exportvendor');
+Route::get('admin/route/list/vendor/export', 'admin\Route_controller@exportingvendor');

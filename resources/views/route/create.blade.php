@@ -172,13 +172,13 @@ $(document).ready(function(){
               </div>
                   </div>
                   <!--  -->
-                   <div class="col-md-8 col-lg-8 col-sm-8">
-                       <!-- TIMELINE -->
-              <div class="panel">
+            <div class="col-md-8 col-lg-8 col-sm-8">
+                       
+              <!-- <div class="panel">
                 <div class="panel-heading">
                   <h3 class="panel-title">Import Route</h3>
                 </div>
-<form method="post" enctype="multipart/form-data" action="{{ url('/import/route') }}">
+                <form method="post" enctype="multipart/form-data" action="{{ url('/import/route') }}">
                     @csrf
                 <div class="panel-body">
                   <div class="col-sm-12 col-lg-12 col-md-12">
@@ -199,7 +199,7 @@ $(document).ready(function(){
                   
                     </div>
                     
-                  </div>
+                  </div> -->
                 
     
                 </div>

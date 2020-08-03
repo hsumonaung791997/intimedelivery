@@ -60,6 +60,7 @@
 												<th>Deliver Name</th>
 												<th>Qty</th>
 												<th>Price Per Item</th>
+												<th>Total Amount</th>
 												<th>Route Reg Date</th>
 												<th>Assign Date</th>
 												<th>Status</th>
@@ -83,6 +84,12 @@
 												<td>{{$row->delivery_name}}</td>
 												<td>{{$row->qty}}</td>
 												<td>{{$row->amount}}</td>
+												<?php 
+													$qty = $row->qty;
+													$amount = $row->amount;
+													$total = $qty * $amount;
+												?>
+												<td>{{$total}}</td>
 												<td>{{$row->route_register_date}}</td>
 												<td>
 													<?php $date=$row->assign_date; 

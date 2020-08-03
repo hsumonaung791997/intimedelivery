@@ -62,7 +62,12 @@
 												<td>{{$row->p_id}}</td>
 												<td>{{$row->product_name}}</td>
 												<td>{{$row->qty}}</td>
-												<td>{{$row->amount}}</td>
+												<?php 
+													$qty = $row->qty;
+													$amount = $row->amount;
+													$total = $qty * $amount;
+												?>
+												<td>{{$total}}</td>
 												<td><?php echo date("d-m-Y", strtotime($row->reg_date)); ?></td>
 												<td>{{$row->target_date}}:{{$row->target_time}}</td>
 												<td>{{$row->product_vendor_name}}</td>
@@ -79,7 +84,12 @@
 												<td>{{$row->p_id}}</td>
 												<td>{{$row->product_name}}</td>
 												<td>{{$row->qty}}</td>
-												<td>{{$row->amount}}</td>
+												<?php 
+													$qty = $row->qty;
+													$amount = $row->amount;
+													$total = $qty * $amount;
+												?>
+												<td>{{$total}}</td>
 												<td><?php echo date("d-m-Y", strtotime($row->reg_date)); ?></td>
 												<td>{{$row->target_date}}:{{$row->target_time}}</td>
 												<td>{{$row->product_vendor_name}}</td>

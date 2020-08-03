@@ -31,10 +31,10 @@
 							                    <input type="date" class="form-control" name="date" value="{{$date}}">
 							                  </div>
 							                 
-							                  <div class="col-md-2 col-sm-2 col-lg-2">
+							                  <!-- <div class="col-md-2 col-sm-2 col-lg-2"> -->
 							                    <input type="submit" name="filter" value="Filter" class="btn btn-primary">
 							                    <input type="submit" name="print" value="Print" class="btn btn-success">
-						                  </div>
+						                  <!-- </div> -->
 					                  </div>
 					                  </form>
 

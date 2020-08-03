@@ -76,6 +76,7 @@
 						<li><a href="{{URL::to('order/create')}}" class=""><span class="lnr lnr-enter-down"></span>Order Create</span> </a></li>
 						<li><a href="{{URL::to('contact/issue/')}}" class=""><i class="lnr lnr-phone-handset"></i> <span>Contact Issue</span> </a></li>	
 						<!-- <li><a href="{{URL::to('make/order')}}" class=""><span class="lnr lnr-enter-down"></span>Order Create</span> </a></li> -->
+						<!-- <li><a href="{{URL::to('contact/issue/')}}" class=""><i class="lnr lnr-users"></i> <span>Account Head</span></a></li>	 -->
 					</ul>
 				</nav>
 			</div>
@@ -95,6 +96,7 @@
 		<!-- END MAIN -->
 		<div class="clearfix"></div>
 		<footer>
+			
 			<div class="container-fluid">
 				<p class="copyright">&copy; 2017 <a href="https://www.themeineed.com" target="_blank">Theme I Need</a>. All Rights Reserved.</p>
 			</div>
@@ -106,6 +108,7 @@
 	<script src="{{URL::to('assets/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 	<script src="{{URL::to('assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 	<script src="{{URL::to('assets/scripts/klorofil-common.js')}}"></script>
+	<script src="{{ asset('js/intimedelivery.js') }}"></script>
 
 </body>
 

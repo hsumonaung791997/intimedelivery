@@ -35,7 +35,7 @@ class warehouse_stock_controller extends Controller
          $res = array_slice($response, $pageSize * ($page - 1), $pageSize, true);
         $result = new \Illuminate\Pagination\LengthAwarePaginator($res, count($response), $pageSize, $page);
         // dd($result);
-    	return view("warehouse/stock/stock_ledger",['result'=>$result]);
+      return view("warehouse/stock/stock_ledger",['result'=>$result]);
     }
     public function stock_ledger_search(Request $request)
     {
@@ -127,7 +127,7 @@ class warehouse_stock_controller extends Controller
         $res = array_slice($response, $pageSize * ($page - 1), $pageSize, true);
         $result = new \Illuminate\Pagination\LengthAwarePaginator($res, count($response), $pageSize, $page);
     
-    	return view("warehouse/stock/stock_list",['result'=>$result]);
+      return view("warehouse/stock/stock_list",['result'=>$result]);
     }
    
     public function stock_return()
@@ -326,8 +326,16 @@ class warehouse_stock_controller extends Controller
                         ON so.product_id=p.p_id
                         WHERE so.postman_id='$postman_id' AND rp.status=2 AND rp.parcel_status=1 GROUP BY rp.id ORDER BY so.id DESC
           ");
-          return view("warehouse/stock/stock_outgoing",['postman'=>$postman,'choose_postman'=>$choose_postman,'product_list'=>$product_list]);
+        $assign_list=DB::select("
+          SELECT p.product_name,p.p_id,p.product_size,p.product_type,p.product_vendor_name,rp.id as rp_id, rp.assign_date as assign_date, rp.quantity as qty
+                        FROM route_planning as rp
+                        JOIN product as p
+                        ON rp.product_id=p.p_id
+                        WHERE rp.delivery_postman_id='$postman_id' GROUP BY rp.id ORDER BY rp.id DESC
+          ");
+          return view("warehouse/stock/stock_outgoing",['postman'=>$postman,'choose_postman'=>$choose_postman,'product_list'=>$product_list,'assign_list'=>$assign_list,'postman_id'=>$postman_id]);
     }
+    
     public function postman_receive(Request $request)
     {
                 $postman_id=$request->input('postman_id');

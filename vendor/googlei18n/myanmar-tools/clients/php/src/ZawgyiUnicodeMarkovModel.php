@@ -164,13 +164,15 @@ class ZawgyiUnicodeMarkovModel
         $totalDelta     = 0.0;
         $seenTransition = false;
 
-        $inputBreakIterator = \IntlBreakIterator::createCodePointInstance();
-        $inputBreakIterator->setText($input);
-
-        do {
-            $idx = $inputBreakIterator->next();
-            $cp = ($idx === \IntlBreakIterator::DONE) ? 0 : $inputBreakIterator->getLastCodePoint();
-            $currState = self::getIndexForCodePoint($cp);
+        for ($offset = 0; $offset <= mb_strlen($input);) {
+            if ($offset == mb_strlen($input)) {
+                $cp        = 0;
+                $currState = 0;
+            } else {
+                $character = mb_substr($input, $offset, 1);
+                $cp = self::ord_utf8($character);
+                $currState = self::getIndexForCodePoint($cp);
+            }
             // Ignore 0-to-0 transitions
             if ($prevState != 0 || $currState != 0) {
                 $delta = $this->classifier->getLogProbabilityDifference($prevState, $currState);
@@ -185,9 +187,10 @@ class ZawgyiUnicodeMarkovModel
                 $seenTransition = true;
             }
 
+            $offset    += 1;
             $prevCp    = $cp;
             $prevState = $currState;
-        } while ($cp !== 0);
+        }
 
         if ($verbose) {
             printf("Final: delta=%.4f\n", $totalDelta);
@@ -203,5 +206,14 @@ class ZawgyiUnicodeMarkovModel
         //        = exp(logPz)/(exp(logPu)+exp(logPz))
         //        = 1/(1+exp(logPu-logPz))
         return 1.0 / (1.0 + exp($totalDelta));
+    }
+
+    public static function ord_utf8($c)
+    {
+        if (is_null($c) || $c === "")
+            return;
+
+        $u32 = mb_convert_encoding($c, "UTF-32BE");
+        return unpack("N", $u32)[1];
     }
 }
